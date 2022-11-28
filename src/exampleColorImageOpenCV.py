@@ -1,9 +1,6 @@
 import sys
-sys.path.insert(1, '../pyKinectAzure/')
-
 import numpy as np
 from pyKinectAzure import pyKinectAzure, _k4a,_k4atypes
-
 import cv2
 import cmapy
 
@@ -30,40 +27,7 @@ if __name__ == "__main__":
     # Start cameras using modified configuration
     pyK4A.device_start_cameras(device_config)
 
-    """calib = _k4atypes.k4a_calibration_t()
-    calib_res = pyK4A.device_get_calibration(device_config.depth_mode,device_config.color_resolution,calib)
-    calib_dep = calib.depth_camera_calibration.extrinsics
-    calib_dep1 = calib.depth_mode.bit_length;
-    print("height: ",calib.depth_camera_calibration.resolution_height)
-    print("width : ", calib.depth_camera_calibration.resolution_width)
-    print("metric radius: ",calib.depth_camera_calibration.metric_radius)
-    print("metric radius: ",calib.depth_camera_calibration.metric_radius)
-    print("imag",calib.depth_camera_calibration.intrinsics.parameter_count.imag)
-    print("cx",calib.depth_camera_calibration.intrinsics.parameters.param.cx)
-    print("cy",calib.depth_camera_calibration.intrinsics.parameters.param.cy)
-    print("fx",calib.depth_camera_calibration.intrinsics.parameters.param.fx)
-    print("fy",calib.depth_camera_calibration.intrinsics.parameters.param.fy)
-    CDCCIPP = calib.depth_camera_calibration.intrinsics.parameters.param
-    print("k1",CDCCIPP.k1)
-    print("k2",CDCCIPP.k2)
-    print("k3",CDCCIPP.k3)
-    print("k4",CDCCIPP.k4)
-    print("k5",CDCCIPP.k5)
-    print("k6",CDCCIPP.k6)
-    print(calib.color_camera_calibration.intrinsics.parameters.v[0])
     
-    
-    V= [i for i in calib.color_camera_calibration.intrinsics.parameters.v]
-    print(V)
-    calib_dep.rotation[0] = 0.0
-
-    rotation = [x for x in calib_dep.rotation]
-    translation = [x for x in calib_dep.translation]
-    #bitlen = [x for x in calib_dep1]
-    
-    print(rotation)
-    print(translation)
-"""
     k = 0
     j=1
     for i in cmapy.cmap('prism'):
@@ -124,7 +88,7 @@ if __name__ == "__main__":
         # Get capture
         pyK4A.device_get_capture()
 
-        # Get the color image from the capture
+        # Get the color and  depth image from the capture
         color_image_handle = pyK4A.capture_get_color_image()
         depth_image = pyK4A.capture_get_depth_image()
         #color_image_handle = pyK4A.transformation_color_image_to_depth_camera()
@@ -153,7 +117,7 @@ if __name__ == "__main__":
             cv2.imshow("Color ",gray)
             ret, thresh = cv2.threshold(gray, 254, 255, cv2.THRESH_OTSU)
             contours, heirarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
-            cv2.drawContours(depth_color_image, contours, -1, (0,0,0), 5)"""
+            cv2.drawContours(depth_color_image, contours, 1, (0,0,0), 5)"""
 
 
             cv2.namedWindow('Color Image',cv2.WINDOW_NORMAL)
